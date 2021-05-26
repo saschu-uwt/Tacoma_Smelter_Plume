@@ -1,0 +1,253 @@
+
+
+<!-- Template borrowed from the earthquake map -->
+
+
+<html>
+	<head>
+		<title>Tacoma Smelter Plume Legacy</title>
+		<!-- <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' /> -->
+		<!-- <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+		<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' /> -->
+		<link rel="stylesheet" href="styles.css" type="text/css"
+		<!-- the Leaflet CSS -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
+
+		<!-- the Leaflet JavaScript library -->
+		<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+
+		<!-- link to the JQuery library used to load GeoJSON files -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+		<!-- link to leaflet legend library, one of four steps to embed the legend -->
+		<script src= "https://cdn.jsdelivr.net/npm/leaflet-legend@1.0.2/leaflet-legend.min.js"></script>
+	</head>
+
+	<body>
+		<div class="topnav">
+     <a href="https://saschu-uwt.github.io/portfolio">Portfolio</a>
+     <a class="active" href="https://saschu-uwt.github.io/Lab2_Part2/">Leaflet</a>
+     <a href="https://saschu-uwt.github.io/Lab_3v2/">Split Screen</a>
+     <a href="https://saschu-uwt.github.io/Lab_4_scrolly/">Story Map</a>
+		 <a href="https://saschu-uwt.github.io/portfolio/capstone.html">Capstone</a>
+		 <a href="https://saschu-uwt.github.io/Carto/">Carto</a>
+		 <a href="https://saschu-uwt.github.io/ModelBuilder/">ModelBuilder</a>
+    </div>
+
+		<h1>ASARCO Plume Legacy</h1>
+
+		<!-- code where we create and name the container that holds the map -->
+		<div id="map" style="height: 80%"></div>
+
+		<p style="margin-top:3em">Schools in relation to the regulated floodplain throughout Pierce County, Washington. Schools within or close to the floodplain may be at higher risk of flooding during a major storm surge. Click on a marker for more information about each school.</p>
+
+		<p style="font-size:.7em; text-align:center">The <a href="https://gisdata-piercecowa.opendata.arcgis.com/datasets/regulated-floodplain-2017" target="_blank">Digital Flood Insurance Rate Map data</a> and <a href="https://gisdata-piercecowa.opendata.arcgis.com/datasets/schools" target="_blank">school locations</a> are provided by the <a href="https://gisdata-piercecowa.opendata.arcgis.com/" target="_blank">Pierce County Open GeoSpatial Data Portal</a>.</p>
+
+		<div class="center">
+			<a href="https://saschu-uwt.github.io/portfolio/"><button class="button button1">Back to Portfolio</button></a>
+		</div>
+
+		<!-- building out the legend in HTML -->
+		<div id="legend">
+				<h2><center>Schools by Type</center></h2>
+				<ul style="list-style-type:none">
+					<li>
+						<svg width="24" height="24">
+							<circle cx="12" cy="14" r="8" stroke="#ff0000" stroke-width="3" fill="#ff0000" fill-opacity="1"/>
+						</svg>
+						<text>Elementary or primary</text>
+					</li>
+					<li>
+						<svg width="24" height="24">
+							<circle cx="12" cy="14" r="8" stroke="#8B0000" stroke-width="3" fill="#8B0000" fill-opacity="1"/>
+						</svg>
+						<text>Middle or junior high</text>
+					</li>
+					<li>
+						<svg width="24" height="24">
+							<circle cx="12" cy="14" r="8" stroke="#0000FF" stroke-width="3" fill="#0000FF" fill-opacity="1"/>
+						</svg>
+						<text>High school</text>
+					</li>
+					<li>
+						<svg width="24" height="24">
+							<circle cx="12" cy="14" r="8" stroke="#00008B" stroke-width="3" fill="#00008B" fill-opacity="1"/>
+						</svg>
+						<text x="0" y="0">College, university or private</text>
+					</li>
+				</ul>
+			</div>
+
+
+			<!-- JS code where we build the map and its functionality -->
+		<script>
+
+
+			// Layers stuff
+			// var cities = L.layerGroup();
+			//
+			// 	L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(cities),
+			// 	L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(cities),
+			// 	L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(cities),
+			// 	L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(cities);
+			//
+			//
+			// 	var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+			// 			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+			// 		mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+			//
+			// 	var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}),
+			// 		streets  = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+			//
+			// 	var map = L.map('map', {
+			// 		center: [39.73, -104.99],
+			// 		zoom: 10,
+			// 		layers: [grayscale, cities]
+			// 	});
+			//
+			// 	var baseLayers = {
+			// 		"Grayscale": grayscale,
+			// 		"Streets": streets
+			// 	};
+			//
+			// 	var overlays = {
+			// 		"Cities": cities
+			// 	};
+			//
+			// 	L.control.layers(baseLayers, overlays).addTo(map);
+
+				var mymap = L.map('map', {
+					center: [47.24, -122.45],
+					zoom: 12,
+					// layers: [basemap, arsenic, lead, roads],
+				});
+				mymap.createPane('labels');
+				mymap.getPane('labels').style.zIndex = 400;
+				mymap.getPane('labels').style.pointerEvents = 'none';
+
+
+				var basemap = L.tileLayer(
+				'https://api.mapbox.com/styles/v1/saschu/ckp4g6sjf1jwt18r0ffjwxamf/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FzY2h1IiwiYSI6ImNrZ3poNGVkYjA1b3Ayd3JzOHczb29iNjEifQ.MqXTIcUhZl4C-s0Jk5o49A', {
+						id: 'mapbox/light-v9',
+						tileSize: 512,
+						zoomOffset: -1,
+						attribution: 'Map tiles by <a href="https://www.mapbox.com/">MapBox</a> | Data from <a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Cleanup-sites/Tacoma-smelter">Washington Department of Ecology</a>',
+				});
+
+				var labels = L.tileLayer(
+				'https://api.mapbox.com/styles/v1/saschu/ckp4x6ay61pf217nkyzhjzq84/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FzY2h1IiwiYSI6ImNrZ3poNGVkYjA1b3Ayd3JzOHczb29iNjEifQ.MqXTIcUhZl4C-s0Jk5o49A', {
+						id: 'mapbox/light-v9',
+						tileSize: 512,
+						zoomOffset: -1,
+						pane: 'labels'
+				});
+
+				basemap.addTo(mymap);
+				labels.addTo(mymap);
+
+					 // Arsenic map layer
+					$.getJSON("GeoJSON/arsenic.geojson",function(data){
+					// var arsenic = L.geoJson(data, {
+					L.geoJson(data, {
+						style: function(feature) {
+							switch (feature.properties.Max_Arsenic) {
+								case 20: return {color: "#709959", fillOpacity: 1};
+								case 40: return {color: "#B0C67C", fillOpacity: 1};
+								case 60: return {color: "#F2EEA2", fillOpacity: 1};
+								case 80: return {color: "#F2E094", fillOpacity: 1};
+								case 100: return {color: "#F2CE85", fillOpacity: 1};
+								case 150: return {color: "#DAA982", fillOpacity: 1};
+								case 200: return {color: "#C38C7B", fillOpacity: 1};
+								case 250: return {color: "#E7BDC6", fillOpacity: 1};
+								case 427: return {color: "#F9F5FC", fillOpacity: 1};
+								}
+							}
+						}).addTo(mymap);//take this out for layer control?
+					});
+
+
+				// // Lead map layers
+				// $.getJSON("GeoJSON/lead.json",function(data){
+				// // var lead = L.geoJson(data, {
+				// L.geoJson(data, {
+				// 	style: function(feature) {
+				// 		switch (feature.properties.Max_Lead) {
+				// 			case 100: return {color: "#709959", fillOpacity: 1};
+				// 			case 200: return {color: "#B0C67C", fillOpacity: 1};
+				// 			case 300: return {color: "#F2EEA2", fillOpacity: 1};
+				// 			case 400: return {color: "#F2E094", fillOpacity: 1};
+				// 			case 500: return {color: "#F2CE85", fillOpacity: 1};
+				// 			case 600: return {color: "#DAA982", fillOpacity: 1};
+				// 			case 700: return {color: "#C38C7B", fillOpacity: 1};
+				// 			case 800: return {color: "#E7BDC6", fillOpacity: 1};
+				// 			case 2793: return {color: "#F9F5FC", fillOpacity: 1};
+				// 			}
+				// 		}
+				// 	}).addTo(mymap);
+				// });
+
+				// //Roads
+				// var roadStyle = {
+				// 	"color": "#E1E1E1",
+				// 	"weight": 1,
+				// 	"opacity": 0.25,
+				// 	"zIndex": 10
+				// };
+				// $.getJSON("GeoJSON/roads.json",function(data){
+				// // var roads = L.geoJson(data, {
+				// 	L.geoJson(data, {
+				// 		style: roadStyle
+				// 	}).addTo(mymap);
+				// });
+
+				// Samples for arsenic
+				// Samples for lead
+
+				// var overlays = {
+				// 	"Base Map": basemap,
+				// 	"Arsenic Interpolation": arsenic,
+				// 	"Lead Interpolation": lead,
+				// 	"Tacoma Roads": roads
+				// };
+				//
+				// L.control.layers(overlays).addTo(mymap);
+
+
+
+				// OLD STUFF
+				// $.getJSON("https://opendata.arcgis.com/datasets/f67ca6743cec4a05a9bbfad7050bc4e5_0.geojson",function(data){
+
+
+				// // add GeoJSON layer to the map once the file is loaded
+				// L.geoJson(data, {
+				// 	pointToLayer: function(feature, latlng){
+		    //             		var colorCode,
+				// 		schoolType = feature.properties.TYPE;
+		    //             			if (schoolType === "ELEM") colorCode = '#ff0000';
+				// 									else if (schoolType === "PRIM") colorCode = '#ff0000';
+				// 									else if (schoolType === "MID") colorCode = '#8B0000';
+		    //             			else if (schoolType === "JRHIGH") colorCode = '#8B0000';
+				// 									else if (schoolType === "HIGH") colorCode = '#0000FF';
+				// 									else colorCode = '#00008B';
+		    //             	var marker = L.circleMarker(latlng, {radius: 4, color: colorCode, fillOpacity: 1});
+				// 							marker.bindPopup("Name: " + feature.properties.NAME + "<br>Address: " + feature.properties.ADDRESS + ", " + feature.properties.CITY + "<br><a href =" + feature.properties.WEBSITE + ">More info</a>");
+				// 							return marker;
+				// 						}
+				// 					}).addTo(mymap);
+				// 	});
+
+
+
+					//puts the legend in the map, at bottom-left
+					var Legend =  new L.Control.Legend({
+						position: 'bottomleft',
+					});
+
+					mymap.addControl(Legend);
+					$(".legend-container").append( $("#legend") );
+
+
+
+		</script>
+	</body>
+</html>

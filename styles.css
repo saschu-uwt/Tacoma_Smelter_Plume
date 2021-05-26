@@ -1,0 +1,184 @@
+body {
+  background-color: #D3D3D3;
+  font-family: Arial, sans-serif;
+  line-height: 1.65;
+  margin-left: 4em;
+  margin-right: 4em;
+  margin-bottom: 8em;
+}
+
+h1 {
+  margin-bottom:40;
+  /* text-transform: uppercase; */
+  text-align: center;
+  letter-spacing: .1em;
+}
+
+
+#legend {
+  line-height: 2px;
+  background: white;
+  opacity: 0.9;
+  padding:5px 25px 5px 0px;
+  }
+
+  /* Navigation bar */
+  /* Add a black background color to the top navigation */
+  .topnav {
+    background-color: #333;
+    overflow: hidden;
+    margin-bottom: 3em;
+  }
+
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  /* Button */
+
+  .center {
+    margin-top: 5vh;
+    position: absolute;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"],
+    button,
+    .button {
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      -ms-appearance: none;
+      appearance: none;
+      -moz-transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      -webkit-transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      -ms-transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+      border-radius: 4px;
+      border: 0;
+      cursor: pointer;
+      display: inline-block;
+      font-weight: 400;
+      height: 3.5em;
+      line-height: 3.5em;
+      padding: 0 2em 0 2.375em;
+      text-align: center;
+      text-decoration: none;
+      white-space: nowrap;
+      text-transform: none;
+      letter-spacing: 0.325em;
+      font-size: 0.725em;
+    }
+
+      input[type="submit"].icon:before,
+      input[type="reset"].icon:before,
+      input[type="button"].icon:before,
+      button.icon:before,
+      .button.icon:before {
+        margin-right: 0.5em;
+      }
+
+      input[type="submit"].fit,
+      input[type="reset"].fit,
+      input[type="button"].fit,
+      button.fit,
+      .button.fit {
+        display: block;
+        margin: 0 0 1em 0;
+        width: 100%;
+      }
+
+      input[type="submit"].big,
+      input[type="reset"].big,
+      input[type="button"].big,
+      button.big,
+      .button.big {
+        font-size: 0.8em;
+        padding: 0 2.5em 0 2.875em;
+        height: 3.75em;
+        line-height: 3.75em;
+      }
+
+      input[type="submit"].disabled, input[type="submit"]:disabled,
+      input[type="reset"].disabled,
+      input[type="reset"]:disabled,
+      input[type="button"].disabled,
+      input[type="button"]:disabled,
+      button.disabled,
+      button:disabled,
+      .button.disabled,
+      .button:disabled {
+        -moz-pointer-events: none;
+        -webkit-pointer-events: none;
+        -ms-pointer-events: none;
+        pointer-events: none;
+        opacity: 0.25;
+      }
+
+      @media screen and (max-width: 480px) {
+
+        input[type="submit"],
+        input[type="reset"],
+        input[type="button"],
+        button,
+        .button {
+          padding: 0;
+        }
+
+      }
+
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"],
+    button,
+    .button {
+      background-color: transparent;
+      box-shadow: inset 0 0 0 2px #666666;
+      color: #444444 !important;
+    }
+
+      input[type="submit"]:hover,
+      input[type="reset"]:hover,
+      input[type="button"]:hover,
+      button:hover,
+      .button:hover {
+        color: #EF6480 !important;
+        box-shadow: inset 0 0 0 2px #EF6480;
+      }
+
+      input[type="submit"]:active,
+      input[type="reset"]:active,
+      input[type="button"]:active,
+      button:active,
+      .button:active {
+        background-color: rgba(239, 100, 128, 0.15);
+      }
+
+      input[type="submit"].icon:before,
+      input[type="reset"].icon:before,
+      input[type="button"].icon:before,
+      button.icon:before,
+      .button.icon:before {
+        color: #999999;
+      }
