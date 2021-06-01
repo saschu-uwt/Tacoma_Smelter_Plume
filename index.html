@@ -6,10 +6,8 @@
 <html>
 	<head>
 		<title>Tacoma Smelter Plume Legacy</title>
-		<!-- <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' /> -->
-		<!-- <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
-		<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' /> -->
 		<link rel="stylesheet" href="styles.css" type="text/css"
+
 		<!-- the Leaflet CSS -->
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"/>
 
@@ -21,6 +19,25 @@
 
 		<!-- link to leaflet legend library, one of four steps to embed the legend -->
 		<script src= "https://cdn.jsdelivr.net/npm/leaflet-legend@1.0.2/leaflet-legend.min.js"></script>
+
+		<!-- read GeoJSON files as Javascript. Basically, same .json file but with "var arsenic = " in front of the first "{" -->
+		<!-- here's where I learned it: https://www.e-education.psu.edu/geog585/node/771 -->
+		<script src = "GeoJSON/arsenic.js"></script>
+		<script src = "GeoJSON/lead.js"></script>
+		<script src = "GeoJSON/samples.js"></script>
+
+		<!-- Load Esri Leaflet from CDN -->
+		<script src="https://unpkg.com/esri-leaflet@2.4.1/dist/esri-leaflet.js"
+		integrity="sha512-xY2smLIHKirD03vHKDJ2u4pqeHA7OQZZ27EjtqmuhDguxiUvdsOuXMwkg16PQrm9cgTmXtoxA6kwr8KBy3cdcw=="
+		crossorigin=""></script>
+
+		<!-- Load Esri Leaflet Geocoder from CDN -->
+		<link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
+			integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+			crossorigin="">
+		<script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
+			integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
+			crossorigin=""></script>
 	</head>
 
 	<body>
@@ -34,219 +51,25 @@
 		 <a href="https://saschu-uwt.github.io/ModelBuilder/">ModelBuilder</a>
     </div>
 
-		<h1>ASARCO Plume Legacy</h1>
+		<h1>Arsenic and Lead in Tacoma's Soil</h1>
+		<h3>The Tacoma Smelter Plume Legacy</h3>
 
 		<!-- code where we create and name the container that holds the map -->
 		<div id="map" style="height: 80%"></div>
 
-		<p style="margin-top:3em">Schools in relation to the regulated floodplain throughout Pierce County, Washington. Schools within or close to the floodplain may be at higher risk of flooding during a major storm surge. Click on a marker for more information about each school.</p>
+		<p style="margin-top:3em">For nearly 100 years, the American Smelter and Refining Company (ASARCO) operated a copper smelter in the city of Ruston, in North Tacoma. Air emissions polluted the surrounding neighborhoods and a 1,000 square mile area called the Tacoma Smelter Plume. In the early 1980s, the U.S. Environmental Protection Agency (EPA) began a Superfund cleanup of the site. Arsenic, lead and other heavy metals are still in Tacoma's soil. For details on the smelter's history, visit this <a href = "https://www.historylink.org/File/8744">History Link</a> page. </p>
 
-		<p style="font-size:.7em; text-align:center">The <a href="https://gisdata-piercecowa.opendata.arcgis.com/datasets/regulated-floodplain-2017" target="_blank">Digital Flood Insurance Rate Map data</a> and <a href="https://gisdata-piercecowa.opendata.arcgis.com/datasets/schools" target="_blank">school locations</a> are provided by the <a href="https://gisdata-piercecowa.opendata.arcgis.com/" target="_blank">Pierce County Open GeoSpatial Data Portal</a>.</p>
+		<p>The Washington State Department of Ecology maintains several initiatives to educate the public, monitor contamination and replace soil in residential yards. Soil samples collected between 2002 and 2019 were compiled to show the most current levels of arsenic and lead. The average scores from the most recent tests were interpolated over the city of Tacoma to create this visualization.</p>
+
+		<p style="font-size:.7em; text-align:center">Special thanks to Amy Hargrove at the <a href = "https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Cleanup-sites/Tacoma-smelter"> Washington State Department of Ecology</a>. The Tacoma city boundary was provided by the <a href="https://gisdata-piercecowa.opendata.arcgis.com/datasets/cities-in-pierce-county/explore">Pierce County Open GeoSpatial Data Portal</a>.</p>
 
 		<div class="center">
 			<a href="https://saschu-uwt.github.io/portfolio/"><button class="button button1">Back to Portfolio</button></a>
 		</div>
 
-		<!-- building out the legend in HTML -->
-		<div id="legend">
-				<h2><center>Schools by Type</center></h2>
-				<ul style="list-style-type:none">
-					<li>
-						<svg width="24" height="24">
-							<circle cx="12" cy="14" r="8" stroke="#ff0000" stroke-width="3" fill="#ff0000" fill-opacity="1"/>
-						</svg>
-						<text>Elementary or primary</text>
-					</li>
-					<li>
-						<svg width="24" height="24">
-							<circle cx="12" cy="14" r="8" stroke="#8B0000" stroke-width="3" fill="#8B0000" fill-opacity="1"/>
-						</svg>
-						<text>Middle or junior high</text>
-					</li>
-					<li>
-						<svg width="24" height="24">
-							<circle cx="12" cy="14" r="8" stroke="#0000FF" stroke-width="3" fill="#0000FF" fill-opacity="1"/>
-						</svg>
-						<text>High school</text>
-					</li>
-					<li>
-						<svg width="24" height="24">
-							<circle cx="12" cy="14" r="8" stroke="#00008B" stroke-width="3" fill="#00008B" fill-opacity="1"/>
-						</svg>
-						<text x="0" y="0">College, university or private</text>
-					</li>
-				</ul>
-			</div>
-
-
 			<!-- JS code where we build the map and its functionality -->
+		<script src = "config.js"></script>
 		<script>
-
-
-			// Layers stuff
-			// var cities = L.layerGroup();
-			//
-			// 	L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(cities),
-			// 	L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(cities),
-			// 	L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(cities),
-			// 	L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(cities);
-			//
-			//
-			// 	var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-			// 			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-			// 		mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
-			//
-			// 	var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}),
-			// 		streets  = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
-			//
-			// 	var map = L.map('map', {
-			// 		center: [39.73, -104.99],
-			// 		zoom: 10,
-			// 		layers: [grayscale, cities]
-			// 	});
-			//
-			// 	var baseLayers = {
-			// 		"Grayscale": grayscale,
-			// 		"Streets": streets
-			// 	};
-			//
-			// 	var overlays = {
-			// 		"Cities": cities
-			// 	};
-			//
-			// 	L.control.layers(baseLayers, overlays).addTo(map);
-
-				var mymap = L.map('map', {
-					center: [47.24, -122.45],
-					zoom: 12,
-					// layers: [basemap, arsenic, lead, roads],
-				});
-				mymap.createPane('labels');
-				mymap.getPane('labels').style.zIndex = 400;
-				mymap.getPane('labels').style.pointerEvents = 'none';
-
-
-				var basemap = L.tileLayer(
-				'https://api.mapbox.com/styles/v1/saschu/ckp4g6sjf1jwt18r0ffjwxamf/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FzY2h1IiwiYSI6ImNrZ3poNGVkYjA1b3Ayd3JzOHczb29iNjEifQ.MqXTIcUhZl4C-s0Jk5o49A', {
-						id: 'mapbox/light-v9',
-						tileSize: 512,
-						zoomOffset: -1,
-						attribution: 'Map tiles by <a href="https://www.mapbox.com/">MapBox</a> | Data from <a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Cleanup-sites/Tacoma-smelter">Washington Department of Ecology</a>',
-				});
-
-				var labels = L.tileLayer(
-				'https://api.mapbox.com/styles/v1/saschu/ckp4x6ay61pf217nkyzhjzq84/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FzY2h1IiwiYSI6ImNrZ3poNGVkYjA1b3Ayd3JzOHczb29iNjEifQ.MqXTIcUhZl4C-s0Jk5o49A', {
-						id: 'mapbox/light-v9',
-						tileSize: 512,
-						zoomOffset: -1,
-						pane: 'labels'
-				});
-
-				basemap.addTo(mymap);
-				labels.addTo(mymap);
-
-					 // Arsenic map layer
-					$.getJSON("GeoJSON/arsenic.geojson",function(data){
-					// var arsenic = L.geoJson(data, {
-					L.geoJson(data, {
-						style: function(feature) {
-							switch (feature.properties.Max_Arsenic) {
-								case 20: return {color: "#709959", fillOpacity: 1};
-								case 40: return {color: "#B0C67C", fillOpacity: 1};
-								case 60: return {color: "#F2EEA2", fillOpacity: 1};
-								case 80: return {color: "#F2E094", fillOpacity: 1};
-								case 100: return {color: "#F2CE85", fillOpacity: 1};
-								case 150: return {color: "#DAA982", fillOpacity: 1};
-								case 200: return {color: "#C38C7B", fillOpacity: 1};
-								case 250: return {color: "#E7BDC6", fillOpacity: 1};
-								case 427: return {color: "#F9F5FC", fillOpacity: 1};
-								}
-							}
-						}).addTo(mymap);//take this out for layer control?
-					});
-
-
-				// // Lead map layers
-				// $.getJSON("GeoJSON/lead.json",function(data){
-				// // var lead = L.geoJson(data, {
-				// L.geoJson(data, {
-				// 	style: function(feature) {
-				// 		switch (feature.properties.Max_Lead) {
-				// 			case 100: return {color: "#709959", fillOpacity: 1};
-				// 			case 200: return {color: "#B0C67C", fillOpacity: 1};
-				// 			case 300: return {color: "#F2EEA2", fillOpacity: 1};
-				// 			case 400: return {color: "#F2E094", fillOpacity: 1};
-				// 			case 500: return {color: "#F2CE85", fillOpacity: 1};
-				// 			case 600: return {color: "#DAA982", fillOpacity: 1};
-				// 			case 700: return {color: "#C38C7B", fillOpacity: 1};
-				// 			case 800: return {color: "#E7BDC6", fillOpacity: 1};
-				// 			case 2793: return {color: "#F9F5FC", fillOpacity: 1};
-				// 			}
-				// 		}
-				// 	}).addTo(mymap);
-				// });
-
-				// //Roads
-				// var roadStyle = {
-				// 	"color": "#E1E1E1",
-				// 	"weight": 1,
-				// 	"opacity": 0.25,
-				// 	"zIndex": 10
-				// };
-				// $.getJSON("GeoJSON/roads.json",function(data){
-				// // var roads = L.geoJson(data, {
-				// 	L.geoJson(data, {
-				// 		style: roadStyle
-				// 	}).addTo(mymap);
-				// });
-
-				// Samples for arsenic
-				// Samples for lead
-
-				// var overlays = {
-				// 	"Base Map": basemap,
-				// 	"Arsenic Interpolation": arsenic,
-				// 	"Lead Interpolation": lead,
-				// 	"Tacoma Roads": roads
-				// };
-				//
-				// L.control.layers(overlays).addTo(mymap);
-
-
-
-				// OLD STUFF
-				// $.getJSON("https://opendata.arcgis.com/datasets/f67ca6743cec4a05a9bbfad7050bc4e5_0.geojson",function(data){
-
-
-				// // add GeoJSON layer to the map once the file is loaded
-				// L.geoJson(data, {
-				// 	pointToLayer: function(feature, latlng){
-		    //             		var colorCode,
-				// 		schoolType = feature.properties.TYPE;
-		    //             			if (schoolType === "ELEM") colorCode = '#ff0000';
-				// 									else if (schoolType === "PRIM") colorCode = '#ff0000';
-				// 									else if (schoolType === "MID") colorCode = '#8B0000';
-		    //             			else if (schoolType === "JRHIGH") colorCode = '#8B0000';
-				// 									else if (schoolType === "HIGH") colorCode = '#0000FF';
-				// 									else colorCode = '#00008B';
-		    //             	var marker = L.circleMarker(latlng, {radius: 4, color: colorCode, fillOpacity: 1});
-				// 							marker.bindPopup("Name: " + feature.properties.NAME + "<br>Address: " + feature.properties.ADDRESS + ", " + feature.properties.CITY + "<br><a href =" + feature.properties.WEBSITE + ">More info</a>");
-				// 							return marker;
-				// 						}
-				// 					}).addTo(mymap);
-				// 	});
-
-
-
-					//puts the legend in the map, at bottom-left
-					var Legend =  new L.Control.Legend({
-						position: 'bottomleft',
-					});
-
-					mymap.addControl(Legend);
-					$(".legend-container").append( $("#legend") );
-
-
 
 		</script>
 	</body>
