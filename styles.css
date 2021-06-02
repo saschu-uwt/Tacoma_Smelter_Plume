@@ -9,7 +9,7 @@ body {
 
 h1 {
   /* margin-bottom:40; */
-  /* text-transform: uppercase; */
+  text-transform: uppercase;
   text-align: center;
   letter-spacing: .1em;
 }
