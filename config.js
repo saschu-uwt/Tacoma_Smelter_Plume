@@ -56,16 +56,16 @@ labels.addTo(mymap);
 // Arsenic map layer loaded into a variable
 var arsenicLayer = L.geoJson(arsenic, {
   style: function(feature) {
-    switch (feature.properties.MAX_PPM) {
-      case 10: return {color: "#709959", fillOpacity: 1};
-      case 20: return {color: "#B0C67C", fillOpacity: 1};
-      case 30: return {color: "#F2EEA2", fillOpacity: 1};
-      case 40: return {color: "#F2E094", fillOpacity: 1};
-      case 60: return {color: "#F2CE85", fillOpacity: 1};
-      case 80: return {color: "#DAA982", fillOpacity: 1};
-      case 100: return {color: "#C38C7B", fillOpacity: 1};
-      case 200: return {color: "#E7BDC6", fillOpacity: 1};
-      case 575: return {color: "#F9F5FC", fillOpacity: 1};
+    switch (feature.properties.gridcode) {
+      case 1: return {color: "#709959", fillOpacity: 1};
+      case 2: return {color: "#B0C67C", fillOpacity: 1};
+      case 3: return {color: "#F2EEA2", fillOpacity: 1};
+      case 4: return {color: "#F2E094", fillOpacity: 1};
+      case 5: return {color: "#F2CE85", fillOpacity: 1};
+      case 6: return {color: "#DAA982", fillOpacity: 1};
+      case 7: return {color: "#C38C7B", fillOpacity: 1};
+      case 8: return {color: "#E7BDC6", fillOpacity: 1};
+      case 9: return {color: "#F9F5FC", fillOpacity: 1};
     }
   },
   interactive: false // Turns off the pointer on mouseover
@@ -74,16 +74,16 @@ var arsenicLayer = L.geoJson(arsenic, {
 // Lead map layer as a variable
 var leadLayer = L.geoJson(lead, {
   style: function(feature) {
-    switch (feature.properties.MAX_PPM) {
-      case 25: return {color: "#709959", fillOpacity: 1};
-      case 50: return {color: "#B0C67C", fillOpacity: 1};
-      case 75: return {color: "#F2EEA2", fillOpacity: 1};
-      case 100: return {color: "#F2E094", fillOpacity: 1};
-      case 150: return {color: "#F2CE85", fillOpacity: 1};
-      case 200: return {color: "#DAA982", fillOpacity: 1};
-      case 250: return {color: "#C38C7B", fillOpacity: 1};
-      case 300: return {color: "#E7BDC6", fillOpacity: 1};
-      case 442: return {color: "#F9F5FC", fillOpacity: 1};
+    switch (feature.properties.gridcode) {
+      case 1: return {color: "#709959", fillOpacity: 1};
+      case 2: return {color: "#B0C67C", fillOpacity: 1};
+      case 3: return {color: "#F2EEA2", fillOpacity: 1};
+      case 4: return {color: "#F2E094", fillOpacity: 1};
+      case 5: return {color: "#F2CE85", fillOpacity: 1};
+      case 6: return {color: "#DAA982", fillOpacity: 1};
+      case 7: return {color: "#C38C7B", fillOpacity: 1};
+      case 8: return {color: "#E7BDC6", fillOpacity: 1};
+      case 9: return {color: "#F9F5FC", fillOpacity: 1};
     }
   },
   interactive: false // Turns off the pointer on mouseover
