@@ -101,7 +101,7 @@ var markers = {
 };
 
 function onEachFeature(feature, layer) {
-    // does this feature have a property named MAX_PPM?
+    // does this feature have a properties named Arsenic_PPM and Lead_PPM?
     if (feature.properties && feature.properties.Arsenic_PPM && feature.properties.Lead_PPM) {
         layer.bindPopup("<b>Average Test Results</b><br>Arsenic: "+feature.properties.Arsenic_PPM+" ppm</br>Lead: "+feature.properties.Lead_PPM+" ppm");
     }
