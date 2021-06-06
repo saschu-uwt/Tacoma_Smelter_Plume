@@ -2,13 +2,15 @@
 var mymap = L.map('map', {
   center: [47.24, -122.45],
   zoom: 11,
+  minZoom: 11,
 });
 
 // Geocoding!
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+var bounds = L.latLngBounds([47.1, -122.7],[47.4, -122.2]);
+var searchControl = L.esri.Geocoding.geosearch({
+  useMapBounds: false,
+  searchBounds: bounds
 }).addTo(mymap);
-var searchControl = L.esri.Geocoding.geosearch().addTo(mymap);
 var results = L.layerGroup().addTo(mymap);
 searchControl.on('results', function (data) {
   results.clearLayers();
@@ -28,7 +30,7 @@ var basemap = L.tileLayer(
     id: 'mapbox/light-v9',
     tileSize: 512,
     zoomOffset: -1,
-    attribution: 'basemap tiles by <a href="https://www.mapbox.com/">MapBox</a> | data from <a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Cleanup-sites/Tacoma-smelter">Washington Department of Ecology</a>',
+    attribution: 'Basemap tiles by <a href="https://www.mapbox.com/">MapBox</a> | Data from <a href="https://ecology.wa.gov/Spills-Cleanup/Contamination-cleanup/Cleanup-sites/Tacoma-smelter">Washington Department of Ecology</a>',
 });
 
 // Layer with roads and labels. Using the 'labels' pane to put this over the interpolation polygon layers
