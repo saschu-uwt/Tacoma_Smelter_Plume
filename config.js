@@ -3,6 +3,7 @@ var mymap = L.map('map', {
   center: [47.24, -122.45],
   zoom: 11,
   minZoom: 11,
+  defaultExtentControl: true,
 });
 
 // Geocoding!
