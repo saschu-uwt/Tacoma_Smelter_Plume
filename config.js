@@ -45,7 +45,7 @@ var labels = L.tileLayer(
 
 // ASARCO stack icon
 var stack = L.icon({
-  iconUrl: 'images/smokestack.png',
+  iconUrl: 'images/smokestack2.png',
   iconSize: [50,50],
   iconAnchor: [50,50],
   popupAnchor: [0,-50]
