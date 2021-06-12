@@ -144,13 +144,13 @@ var ArsenicLegend = L.control({
 
 ArsenicLegend.onAdd = function(mymap) {
   var div = L.DomUtil.create('div', 'info legend');
-  div.innerHTML += "<iframe src='" + "images/Arsenic_Legend.png" + "' width='280' height='200' frameborder='0' scrolling='no'></iframe>"
+  div.innerHTML += "<iframe src='" + "images/Arsenic_Legend.png" + "' width='300' height='200' frameborder='0' scrolling='no'></iframe>"
   return div;
 };
 
 LeadLegend.onAdd = function(mymap) {
   var div = L.DomUtil.create('div', 'info legend');
-  div.innerHTML += "<iframe src='" + "images/Lead_Legend.png" + "' width='280' height='200' frameborder='0' scrolling='no'></iframe>"
+  div.innerHTML += "<iframe src='" + "images/Lead_Legend.png" + "' width='300' height='200' frameborder='0' scrolling='no'></iframe>"
   return div;
 };
 
